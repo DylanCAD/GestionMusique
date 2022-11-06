@@ -15,6 +15,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker=Factory::create("fr_FR");
+        
         $lesStyles=$this->chargeFichier("style.csv");
         foreach ($lesStyles as $value) {
             $style = new Style();
@@ -27,18 +28,18 @@ class AppFixtures extends Fixture
 
         $lesArtistes=$this->chargeFichier("artiste.csv");
 
-$genres=["men","women"];       
-foreach ($lesArtistes as $value) {
-    $artiste=new Artiste();
-    $artiste    ->setId(intval($value[0]))
-                ->setNom($value[1])
-                ->setDescription("<p>". join("</p><p>",$faker->paragraphs(5)) . "</p>")
-                ->setSite($faker->url())
-                ->setImage('https://randomuser.me/api/portraits/'.$faker->randomElement($genres)."/".mt_rand(1,99).".jpg")
-                ->setType($value[2]);
-        $manager->persist($artiste);
-        $this->addReference("artiste".$artiste->getId(),$artiste);
-        }
+        $genres=["men","women"];       
+        foreach ($lesArtistes as $value) {
+            $artiste=new Artiste();
+            $artiste    ->setId(intval($value[0]))
+                        ->setNom($value[1])
+                        ->setDescription("<p>". join("</p><p>",$faker->paragraphs(5)) . "</p>")
+                        ->setSite($faker->url())
+                        ->setImage('https://randomuser.me/api/portraits/'.$faker->randomElement($genres)."/".mt_rand(1,99).".jpg")
+                        ->setType($value[2]);
+                $manager->persist($artiste);
+                $this->addReference("artiste".$artiste->getId(),$artiste);
+                }
 
         $lesAlbums=$this->chargeFichier("album.csv");
         foreach ($lesAlbums as $value) {
