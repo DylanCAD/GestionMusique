@@ -1,15 +1,30 @@
-{% extends 'base.html.twig' %}
+CREATE TABLE Personnel(
+   numPersonnel VARCHAR(50),
+   nom VARCHAR(50),
+   grade VARCHAR(50),
+   PRIMARY KEY(numPersonnel)
+);
 
-{% block title %}Acceuil{% endblock %}
+CREATE TABLE Stage(
+   numStage VARCHAR(50),
+   titre VARCHAR(50),
+   PRIMARY KEY(numStage)
+);
 
-{% block body %}
-<div class="jumbotron">
-  <h1 class="display-3">Bienvenu sur mon site M@ Musique</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </p>
-</div>
-{% endblock %}
+CREATE TABLE Stagiaire(
+   numPersonnelStagiaire VARCHAR(50),
+   numStageStagiaire VARCHAR(50),
+   présent VARCHAR(50),
+   PRIMARY KEY(numPersonnelStagiaire, numStageStagiaire),
+   FOREIGN KEY(numPersonnelStagiaire) REFERENCES Personnel(numPersonnel),
+   FOREIGN KEY(numStageStagiaire) REFERENCES Stage(numStage)
+);
+
+CREATE TABLE formateur(
+   numPersonnelFormateur VARCHAR(50),
+   numStageFormateur VARCHAR(50),
+   PRIMARY KEY(numPersonnelFormateur, numStageFormateur),
+   FOREIGN KEY(numPersonnelFormateur) REFERENCES Personnel(numPersonnel),
+   FOREIGN KEY(numStageFormateur) REFERENCES Stage(numStage)
+);
+CADOTDY_Triggers
